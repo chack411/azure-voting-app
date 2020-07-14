@@ -87,8 +87,8 @@ stages:
               action: deploy
               namespace: vote
               manifests: |
-                $(Pipeline.Workspace)/manifests/storage-resources.yaml
-                $(Pipeline.Workspace)/manifests/pod-secrets.yaml
+                # $(Pipeline.Workspace)/manifests/storage-resources.yaml
+                # $(Pipeline.Workspace)/manifests/pod-secrets.yaml
                 $(Pipeline.Workspace)/manifests/azure-vote-back-deployment.yaml
                 $(Pipeline.Workspace)/manifests/azure-vote-back-service.yaml
                 $(Pipeline.Workspace)/manifests/azure-vote-front-deployment.yaml
