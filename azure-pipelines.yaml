@@ -15,7 +15,7 @@ variables:
   containerRegistry: 'akirainaks.azurecr.io'
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
-  imagePullSecret: 'akirainaks14071f17-auth'
+  imagePullSecret: 'akirainaks-acr-auth'
 
   azureSubscriptionEndpoint: Edtter(bd5c9737-10a5-4178-9b83-fd223f7b4bb4)
   imageRepositoryFront: 'azure-vote-front'
@@ -68,7 +68,7 @@ stages:
     displayName: Deploy
     pool:
       vmImage: $(vmImageName)
-    environment: 'chack411azurevotingapp-1016.vote'
+    environment: 'chack411azurevotingapp.vote'
     strategy:
       runOnce:
         deploy:
@@ -87,14 +87,14 @@ stages:
               action: deploy
               namespace: vote
               manifests: |
-                # $(Pipeline.Workspace)/manifests/storage-resources.yaml
+                $(Pipeline.Workspace)/manifests/storage-resources.yaml
                 # $(Pipeline.Workspace)/manifests/pod-secrets.yaml
                 # $(Pipeline.Workspace)/manifests/azure-vote-back-deployment.yaml
                 # $(Pipeline.Workspace)/manifests/azure-vote-back-service.yaml
-                $(Pipeline.Workspace)/manifests/azure-vote-front-deployment.yaml
-                $(Pipeline.Workspace)/manifests/azure-vote-front-service.yaml
+                # $(Pipeline.Workspace)/manifests/azure-vote-front-deployment.yaml
+                # $(Pipeline.Workspace)/manifests/azure-vote-front-service.yaml
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
-                # $(containerRegistry)/$(imageRepositoryBack):$(tag)
+                $(containerRegistry)/$(imageRepositoryBack):$(tag)
                 $(containerRegistry)/$(imageRepositoryFront):$(tag)
